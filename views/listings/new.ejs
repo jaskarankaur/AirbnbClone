@@ -2,7 +2,7 @@
 <div class="row my-4">
     <div class="col-8 offset-2">
         <h3>Create a Listing</h3>
-        <form method="POST" action="/listings" novalidate class="needs-validation">
+        <form method="POST" action="/listings" novalidate class="needs-validation" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input type="text" name="listing[title]" placeholder="enter title" class="form-control" required>
@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="image">Image Link</label>
-                <input type="text" name="listing[image]" placeholder="enter image link/URL" class="form-control">
+                <label class="form-label" for="image">Upload Image</label>
+                <input type="file" name="listing[image]" placeholder="enter image link/URL" class="form-control">
             </div>
             <div class="row">
                 <div class="mb-3 col-md-4">
@@ -40,12 +40,50 @@
             </div>
             <div class="mb-3">
                 <label class="form-label" for="location">Location</label>
-                <input type="text" name="listing[location]" placeholder="enter location" class="form-control" required>
+                <input type="text" name="listing[location]" placeholder="City, Country" class="form-control" required>
                 <div class="invalid-feedback">
                     Please enter a valid location.
                 </div>
-            </div>           
-            <br><br>
+            </div>    
+            <div class="mb-3">
+                <div class="mb-2">Amenities</div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="trending">
+                    <label class="form-check-label" for="inlineCheckbox1">Trending</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="rooms">
+                    <label class="form-check-label" for="inlineCheckbox1">Rooms</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="arctic">
+                    <label class="form-check-label" for="inlineCheckbox1">Arctic</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="camping">
+                    <label class="form-check-label" for="inlineCheckbox1">Camping</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="mountains">
+                    <label class="form-check-label" for="inlineCheckbox1">Mountains</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="boats">
+                    <label class="form-check-label" for="inlineCheckbox1">Boats</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="farms">
+                    <label class="form-check-label" for="inlineCheckbox1">Farm</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="pools">
+                    <label class="form-check-label" for="inlineCheckbox1">Pool</label>
+                </div>
+                <div class="form-check form-check-inline me-5">
+                    <input class="form-check-input" name="listing[category]" type="checkbox" id="inlineCheckbox1" value="castles">
+                    <label class="form-check-label" for="inlineCheckbox1">Castle</label>
+                </div>
+            </div>       
             <button class="btn btn-dark myred-btn">Add</button>
         </form>
     </div>

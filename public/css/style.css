@@ -25,6 +25,10 @@ body{
     color: rgb(23, 22, 22) !important;
 }
 
+.bold{
+    font-weight: 600 !important;
+}
+
 .f-info{
     height: 8rem;
     background-color: rgb(238, 231, 231);
@@ -102,4 +106,9 @@ body{
 
 .show-btns{
     display: flex;
+}
+
+#map{
+    height: 400px;
+    width: 60vw;
 }

@@ -1,6 +1,11 @@
+if(process.env.NODE_ENV != "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 
 const mongoose = require("mongoose");
@@ -17,6 +22,7 @@ const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const dbURL = process.env.ATLASDB_URL;
 
 
 main()
@@ -26,7 +32,8 @@ main()
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/airbnbclone');
+  // await mongoose.connect('mongodb://127.0.0.1:27017/airbnbclone');
+  await mongoose.connect(dbURL);
 }
 
 app.set("view engine", "ejs");
@@ -36,8 +43,21 @@ app.use(methodOverride("_method"));
 app.engine("ejs", engine);
 app.use(express.static(path.join(__dirname, "/public")));
 
+const store = MongoStore.create({
+    mongoUrl: dbURL,
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24*60*60,
+});
+
+store.on("error", () =>{
+    console.log("error in mongo store");
+});
+
 const sessionOptions = {
-    secret: "airbnbclonesessionsecret",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -48,11 +68,6 @@ const sessionOptions = {
         httpOnly: true,
     },
 };
-
-
-app.get("/", (req, res)=>{
-    res.send("I am root");
-});
 
 app.use(session(sessionOptions));
 app.use(flash());

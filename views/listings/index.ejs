@@ -1,19 +1,119 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<h1> All Listings </h1>
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+<style>
+    #filters{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #filter-options{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .filter{
+        text-align: center;
+        margin: 2rem 2rem 0 0;
+        font-size: small;
+        opacity: 0.6;
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+    }
+    .filter a{
+        text-decoration: none;
+        color: black;
+    }
+    .toggle-switch{
+        text-align: center;
+        border: 1.5px solid grey;
+        border-radius: 1rem;
+        padding: 0.6rem;
+    }
+    .taxinfo{
+        font-size: small;
+    }
+    .taxHide{
+        display: none;
+    }
+    
+</style>
+
+<!-- filters tab -->
+<div id="filters">
+    <div id="filter-options">
+        <div class="filter">
+            <a href="/listings?category=trending"><div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=rooms"><div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=farms"><div><i class="fa-solid fa-tractor"></i></div>
+            <p>Farms</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=mountains"><div><i class="fa-solid fa-mountain-sun"></i></div>
+            <p>Mountains</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=pools"><div><i class="fa-solid fa-person-swimming"></i></div>
+            <p>Pools</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=castles"><div><i class="fa-brands fa-fort-awesome-alt"></i></div>
+            <p>Castles</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=camping"><div><i class="fa-solid fa-campground"></i></div>
+            <p>Camping</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=arctic"><div><i class="fa-solid fa-snowflake"></i></div>
+            <p>Arctic</p></a>
+        </div>
+        <div class="filter">
+            <a href="/listings?category=boats"><div><i class="fa-solid fa-ship"></i></div>
+            <p>Boats</p></a>
+        </div>
+    </div>
+
+    <div class="toggle-switch">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-4">
     <% for(let listing of listings){ %>
         <a class="listing-link" href="/listings/<%=listing._id%>">
             <div class="card listing-card col">
-                <img src="<%=listing.image%>" class="card-img-top" alt="image"/>
+                <img src="<%=listing.image.url%>" class="card-img-top" alt="image"/>
                 <div class="card-img-overlay"></div>
                 <div class="card-body">
                     <p class="card-text">
                         <b><%=listing.title%></b><br>
-                        &#x24;<%=listing.price.toLocaleString("en-CA")%>/night<br>
+                        &#x24;<%=listing.price.toLocaleString("en-CA")%>/night
+                        <i class="taxinfo taxHide">&nbsp;+13% HST</i>
                     </p>
                 </div>
             </div>
         </a>
     <% } %>
 </div>
+
+
+<script>
+    let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+    taxSwitch.addEventListener("click", ()=>{
+        let taxinfo = document.querySelectorAll(".taxinfo");
+        for(let info of taxinfo){
+            info.classList.toggle("taxHide");
+        }
+    });
+</script>
